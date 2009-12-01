@@ -1,4 +1,4 @@
-MooseX-Attribute-UndefTolerant
+MooseX-UndefTolerant
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
@@ -26,21 +26,21 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this module with the
 perldoc command.
 
-    perldoc MooseX::Attribute::UndefTolerant
+    perldoc MooseX::UndefTolerant
 
 You can also look for information at:
 
     RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-Attribute-UndefTolerant
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-UndefTolerant
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/MooseX-Attribute-UndefTolerant
+        http://annocpan.org/dist/MooseX-UndefTolerant
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/MooseX-Attribute-UndefTolerant
+        http://cpanratings.perl.org/d/MooseX-UndefTolerant
 
     Search CPAN
-        http://search.cpan.org/dist/MooseX-Attribute-UndefTolerant/
+        http://search.cpan.org/dist/MooseX-UndefTolerant/
 
 
 COPYRIGHT AND LICENCE
