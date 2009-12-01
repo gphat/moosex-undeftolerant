@@ -3,7 +3,7 @@
 use Test::More tests => 1;
 
 BEGIN {
-    use_ok( 'MooseX::Attribute::UndefTolerant' );
+    use_ok( 'MooseX::UndefTolerant' );
 }
 
-diag( "Testing MooseX::Attribute::UndefTolerant $MooseX::Attribute::UndefTolerant::VERSION, Perl $], $^X" );
+diag( "Testing MooseX::UndefTolerant $MooseX::UndefTolerant::VERSION, Perl $], $^X" );
