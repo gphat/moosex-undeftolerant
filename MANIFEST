@@ -1,8 +1,18 @@
 Changes
-MANIFEST
+ignore.txt
+inc/Module/Install.pm
+inc/Module/Install/Base.pm
+inc/Module/Install/Can.pm
+inc/Module/Install/Fetch.pm
+inc/Module/Install/Makefile.pm
+inc/Module/Install/Metadata.pm
+inc/Module/Install/Win32.pm
+inc/Module/Install/WriteAll.pm
+lib/MooseX/UndefTolerant.pm
+lib/MooseX/UndefTolerant/Attribute.pm
 Makefile.PL
+MANIFEST			This list of files
+META.yml
 README
-lib/MooseX/Attribute/UndefTolerant.pm
 t/00-load.t
-t/pod-coverage.t
-t/pod.t
+t/attribute.t
