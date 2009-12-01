@@ -1,27 +1,15 @@
 package MooseX::UndefTolerant;
-use strict;
-use warnings;
 
 use Moose qw();
 use Moose::Exporter;
-use Moose::Util::MetaRole;
 
 use MooseX::UndefTolerant::Attribute;
 
 our $VERSION = '0.01';
 
-Moose::Exporter->setup_import_methods();
-
-sub init_meta {
-    my (undef, %options) = @_;
-
-    Moose->init_meta(%options);
-
-    return Moose::Util::MetaRole::apply_metaclass_roles(
-        for_class => $options{for_class},
-        attribute_metaclass_roles => [ 'MooseX::UndefTolerant::Attribute' ]
-    );
-}
+Moose::Exporter->setup_import_methods(
+    attribute_metaclass_roles => [ 'MooseX::UndefTolerant::Attribute' ]
+);
 
 1;
 
