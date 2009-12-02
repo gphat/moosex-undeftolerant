@@ -1,12 +1,15 @@
 package MooseX::UndefTolerant::Attribute;
 use Moose::Role;
 
-around('initialize_instance_slot', sub{
+around('initialize_instance_slot', sub {
     my $orig = shift;
     my $self = shift;
 
-    # If the parameter passed in was undef, quietly do nothing but return
-    return unless defined($_->[2]);
+    my $ia = $self->init_arg;
+
+    # $_[2] is the hashref of options passed to the constructor. If our
+    # parameter passed in was undef, quietly do nothing but return.
+    return unless exists($_[2]->{$ia}) && defined($_[2]->{$ia});
 
     # If it was defined, call the real init slot method
     $self->$orig(@_)

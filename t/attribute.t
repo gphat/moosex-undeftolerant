@@ -37,5 +37,10 @@ package main;
     ok(!$foo->has_bar);
 }
 
+{
+    my $foo = Foo2->new(bar => 1234);
+    cmp_ok($foo->bar, 'eq', 1234);
+    ok($foo->has_bar);
+}
 
 done_testing;

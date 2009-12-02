@@ -1,5 +1,8 @@
 Revision history for MooseX-UndefTolerant
 
+0.02    December 2, 2009
+    * Actually check the value properly, therefore setting it properly
+
 0.01    Date/time
         First version, released on an unsuspecting world.
 
