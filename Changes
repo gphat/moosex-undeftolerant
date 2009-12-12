@@ -1,5 +1,8 @@
 Revision history for MooseX-UndefTolerant
 
+0.03    December 3, 2009
+    * Fiddle with dependencies.
+
 0.02    December 2, 2009
     * Actually check the value properly, therefore setting it properly
 

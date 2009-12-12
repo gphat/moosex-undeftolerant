@@ -7,6 +7,7 @@ license  'perl';
 
 build_requires 'Test::More';
 
-requires 'Moose';
+requires 'Moose' => '0.89';
+requires 'Moose::Exporter';
 
 WriteAll;
