@@ -1,5 +1,10 @@
 Revision history for MooseX-UndefTolerant
 
+0.04    January 23, 2010
+    * Rather than skipping initialization all together, just pop off the undef
+      and let the init happen normally.  This makes default values work
+      properly. (Test provided by (and thanks to) Tom Heady)
+
 0.03    December 3, 2009
     * Fiddle with dependencies.
 

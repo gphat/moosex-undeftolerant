@@ -16,3 +16,4 @@ META.yml
 README
 t/00-load.t
 t/attribute.t
+t/defaults.t
