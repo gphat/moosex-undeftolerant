@@ -5,7 +5,7 @@ use Moose::Exporter;
 
 use MooseX::UndefTolerant::Attribute;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 Moose::Exporter->setup_import_methods(
     class_metaroles => { attribute => [ 'MooseX::UndefTolerant::Attribute' ] }
