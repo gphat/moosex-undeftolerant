@@ -21,7 +21,7 @@ __END__
 
 =head1 NAME
 
-MooseX::UndefTolerant - Make your attribute(s) tolerant to undef intitialization
+MooseX::UndefTolerant - Make your attribute(s) tolerant to undef initialization
 
 =head1 SYNOPSIS
 
@@ -94,6 +94,20 @@ real solution was:
 Or some type of codemulch using ternarys.  This module allows you to make
 your attributes more tolerant of undef so that you can keep the first
 example: have your cake and eat it too!
+
+=head1 USE IN YOUR MOOSE EXPORTER
+
+If you already have a custom Moose exporter class and you want this
+behaviour everywhere, you can add these roles there with this call, in
+your C<init_meta> routine:
+
+  Moose::Util::MetaRole::apply_metaroles(
+    class_metaroles => { 
+      attribute => [ 'MooseX::UndefTolerant::Attribute' ],
+      constructor => [ 'MooseX::UndefTolerant::Constructor' ],
+    },
+    for => $args{for_class},
+  );
 
 =head1 PER ATTRIBUTE
 
