@@ -9,7 +9,7 @@ around('initialize_instance_slot', sub {
 
     # $_[2] is the hashref of options passed to the constructor. If our
     # parameter passed in was undef, pop it off the args...
-    pop unless (exists($_[2]->{$ia}) && defined($_[2]->{$ia}));
+    pop unless (defined $ia && exists($_[2]->{$ia}) && defined($_[2]->{$ia}));
 
     # Invoke the real init, as the above line cleared the unef
     $self->$orig(@_)
