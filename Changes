@@ -1,5 +1,10 @@
 Revision history for MooseX-UndefTolerant
 
+0.06
+    * Add support for immutable classes (Chris Andrews)
+    * Be more careful avoiding warnings when the init_arg is undef (Chris Andrews)
+    * POD fixups
+
 0.05
     * Avoid warnings from Moose 1.09. (Dave Rolsky)
 
