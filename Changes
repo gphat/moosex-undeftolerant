@@ -1,5 +1,8 @@
 Revision history for MooseX-UndefTolerant
 
+0.07
+    * Don't do extra work by exists-ing before defined-ing (Chip Salzenberg)
+
 0.06
     * Add support for immutable classes (Chris Andrews)
     * Be more careful avoiding warnings when the init_arg is undef (Chris Andrews)

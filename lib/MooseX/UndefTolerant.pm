@@ -6,7 +6,7 @@ use Moose::Exporter;
 use MooseX::UndefTolerant::Attribute;
 use MooseX::UndefTolerant::Constructor;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 Moose::Exporter->setup_import_methods(
     class_metaroles => { 
