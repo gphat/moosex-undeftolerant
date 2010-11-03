@@ -60,7 +60,7 @@ Or, if you only want one attribute to have this behaviour:
 
 Loading this module in your L<Moose> class makes initialization of your
 attributes tolerant of undef.  If you specify the value of undef to any of
-the attributes they will not be initialized.  Effectively behaving as if you
+the attributes they will not be initialized, effectively behaving as if you
 had not provided a value at all.
 
 =head1 MOTIVATION
@@ -98,6 +98,14 @@ example: have your cake and eat it too!
 =head1 PER ATTRIBUTE
 
 See L<MooseX::UndefTolerant::Attribute>.
+
+=head1 CAVEATS
+
+This extension does not currently work in immutable classes when applying the
+trait to some (but not all) attributes in the class. This is because the
+inlined constructor initialization code currently lives in
+L<Moose::Meta::Method::Constructor>, not L<Moose::Meta::Attribute>. The good
+news is that this is expected to be changing shortly.
 
 =head1 AUTHOR
 
