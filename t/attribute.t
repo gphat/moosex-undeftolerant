@@ -1,46 +1,86 @@
-use Test::More;
+use Test::More tests => 12;
+use Test::Fatal;
 
-package Foo;
-use Moose;
+# TODO: this test should be renamed constructor.t, since all it tests is
+# UT behaviour during construction.
 
-has 'bar' => (
-    traits => [ qw(MooseX::UndefTolerant::Attribute)],
-    is => 'ro',
-    isa => 'Num',
-    predicate => 'has_bar'
-);
+{
+    package Foo;
+    use Moose;
 
-package Foo2;
-use Moose;
-use MooseX::UndefTolerant;
+    has 'attr1' => (
+        traits => [ qw(MooseX::UndefTolerant::Attribute)],
+        is => 'ro',
+        isa => 'Num',
+        predicate => 'has_attr1'
+    );
 
-has 'bar' => (
-    is => 'ro',
-    isa => 'Num',
-    predicate => 'has_bar'
-);
+    has 'attr2' => (
+        is => 'ro',
+        isa => 'Num',
+        predicate => 'has_attr2'
+    );
+}
+
+{
+    package Bar;
+    use Moose;
+    use MooseX::UndefTolerant;
+
+    has 'attr1' => (
+        is => 'ro',
+        isa => 'Num',
+        predicate => 'has_attr1'
+    );
+    has 'attr2' => (
+        is => 'ro',
+        isa => 'Num',
+        predicate => 'has_attr2'
+    );
+}
 
 package main;
 
+note 'Testing class with a single UndefTolerant attribute';
 {
-    my $foo = Foo->new;
-    ok(!$foo->has_bar);
+    my $obj = Foo->new;
+    ok(!$obj->has_attr1, 'attr1 has no value before it is assigned');
+    ok(!$obj->has_attr2, 'attr2 has no value before it is assigned');
 }
 
 {
-    my $foo = Foo->new(bar => undef);
-    ok(!$foo->has_bar);
+    my $obj = Foo->new(attr1 => undef);
+    ok(!$obj->has_attr1, 'UT attr1 has no value when assigned undef in constructor');
+    ok (exception { $obj = Foo->new(attr2 => undef) },
+        'But assigning undef to attr2 generates a type constraint error');
 }
 
 {
-    my $foo = Foo2->new(bar => undef);
-    ok(!$foo->has_bar);
+    my $obj = Foo->new(attr1 => 1234);
+    is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
+    ok($obj->has_attr1, '...and the predicate returns true as normal');
+}
+
+
+note '';
+note 'Testing class with the entire class being UndefTolerant';
+{
+    my $obj = Bar->new;
+    ok(!$obj->has_attr1, 'attr1 has no value before it is assigned');
 }
 
 {
-    my $foo = Foo2->new(bar => 1234);
-    cmp_ok($foo->bar, 'eq', 1234);
-    ok($foo->has_bar);
+    my $obj = Bar->new(attr1 => undef);
+    ok(!$obj->has_attr1, 'attr1 has no value when assigned undef in constructor');
+    ok (!exception { $obj = Bar->new(attr2 => undef) },
+        'assigning undef to attr2 does not produce an error');
+    ok(!$obj->has_attr2, 'attr2 has no value when assigned undef in constructor');
 }
 
-done_testing;
+{
+    my $obj = Bar->new(attr1 => 1234);
+    is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
+    ok($obj->has_attr1, '...and the predicate returns true as normal');
+}
+
+
