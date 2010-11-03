@@ -6,6 +6,7 @@ author   q{Cory G Watson <gphat@cpan.org>};
 license  'perl';
 
 build_requires 'Test::More';
+build_requires 'Test::More' => '0.002';
 
 requires 'Moose' => '0.89';
 requires 'Moose::Exporter';

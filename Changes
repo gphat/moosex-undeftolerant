@@ -1,5 +1,9 @@
 Revision history for MooseX-UndefTolerant
 
+<soon>
+    * Additional (TODO) unit tests for immutable classes, and documentation
+      notes about these limitations. (Karen Etheridge)
+
 0.07
     * Don't do extra work by exists-ing before defined-ing (Chip Salzenberg)
 
