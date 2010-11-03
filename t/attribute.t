@@ -1,4 +1,4 @@
-use Test::More tests => 12;
+use Test::More tests => 14;
 use Test::Fatal;
 
 # TODO: this test should be renamed constructor.t, since all it tests is
@@ -12,13 +12,13 @@ use Test::Fatal;
         traits => [ qw(MooseX::UndefTolerant::Attribute)],
         is => 'ro',
         isa => 'Num',
-        predicate => 'has_attr1'
+        predicate => 'has_attr1',
     );
 
     has 'attr2' => (
         is => 'ro',
         isa => 'Num',
-        predicate => 'has_attr2'
+        predicate => 'has_attr2',
     );
 }
 
@@ -30,16 +30,19 @@ use Test::Fatal;
     has 'attr1' => (
         is => 'ro',
         isa => 'Num',
-        predicate => 'has_attr1'
+        predicate => 'has_attr1',
     );
     has 'attr2' => (
         is => 'ro',
         isa => 'Num',
-        predicate => 'has_attr2'
+        predicate => 'has_attr2',
     );
 }
 
 package main;
+
+note 'Constructor behaviour';
+note '';
 
 note 'Testing class with a single UndefTolerant attribute';
 {
@@ -56,9 +59,11 @@ note 'Testing class with a single UndefTolerant attribute';
 }
 
 {
-    my $obj = Foo->new(attr1 => 1234);
+    my $obj = Foo->new(attr1 => 1234, attr2 => 5678);
     is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
     ok($obj->has_attr1, '...and the predicate returns true as normal');
+    is($obj->attr2, 5678, 'assigning a defined value during construction works as normal');
+    ok($obj->has_attr2, '...and the predicate returns true as normal');
 }
 
 
