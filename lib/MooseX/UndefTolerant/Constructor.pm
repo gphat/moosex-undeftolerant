@@ -4,15 +4,17 @@ use Moose::Role;
 around('_generate_slot_initializer', sub {
         my $orig = shift;
         my $self = shift;
-        my $attr = $self->_attributes->[$_[0]]->init_arg;
+
+        # note the key in the params may not match the attr name.
+        my $key_name = $self->_attributes->[$_[0]]->init_arg;
 
         # insert a line of code at the start of the initializer,
         # clearing the param if it's undefined.
 
-        if (defined $attr) {
+        if (defined $key_name) {
                 my $tolerant_code = 
-                     qq# delete \$params->{'$attr'} unless # . 
-                     qq# exists \$params->{'$attr'} && defined \$params->{'$attr'};\n#;
+                     qq# delete \$params->{'$key_name'} unless # . 
+                     qq# exists \$params->{'$key_name'} && defined \$params->{'$key_name'};\n#;
 
                 return $tolerant_code . $self->$orig(@_);
         }
