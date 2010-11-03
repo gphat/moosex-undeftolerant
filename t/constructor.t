@@ -1,9 +1,6 @@
 use Test::More tests => 14;
 use Test::Fatal;
 
-# TODO: this test should be renamed constructor.t, since all it tests is
-# UT behaviour during construction.
-
 {
     package Foo;
     use Moose;
