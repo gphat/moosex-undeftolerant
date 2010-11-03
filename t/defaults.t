@@ -1,4 +1,5 @@
-use Test::More tests => 22;
+use Test::More;
+use Test::Fatal;
 
 use MooseX::UndefTolerant::Attribute ();
 
@@ -43,56 +44,76 @@ use MooseX::UndefTolerant::Attribute ();
 
 package main;
 
-note 'Default behaviour';
+sub do_tests
+{
+    note 'Testing class with a single UndefTolerant attribute';
+    {
+        my $obj = Foo->new;
+        ok($obj->has_attr1, 'attr1 has a value');
+        ok($obj->has_attr2, 'attr2 has a value');
+        is($obj->attr1, 1, 'attr1\'s value is its default');
+        is($obj->attr2, 2, 'attr2\'s value is its default');
+    }
+
+    {
+        my $obj = Foo->new(attr1 => undef);
+        ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
+        is($obj->attr1, 1, 'attr1\'s value is its default');
+        is($obj->attr2, 2, 'attr2\'s value is its default');
+    }
+
+    {
+        my $obj = Foo->new(attr1 => 1234, attr2 => 5678);
+        is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
+        ok($obj->has_attr1, '...and the predicate returns true as normal');
+        is($obj->attr2, 5678, 'assigning a defined value during construction works as normal');
+        ok($obj->has_attr2, '...and the predicate returns true as normal');
+    }
+
+
+    note '';
+    note 'Testing class with the entire class being UndefTolerant';
+    {
+        my $obj = Bar->new;
+        ok($obj->has_attr1, 'attr1 has a value');
+        ok($obj->has_attr2, 'attr2 has a value');
+        is($obj->attr1, 1, 'attr1\'s value is its default');
+        is($obj->attr2, 2, 'attr2\'s value is its default');
+    }
+
+    {
+        my $obj = Bar->new(attr1 => undef);
+        ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
+        is($obj->attr1, 1, 'attr1\'s value is its default');
+        is($obj->attr2, 2, 'attr2\'s value is its default');
+    }
+
+    {
+        my $obj = Bar->new(attr1 => 1234, attr2 => 5678);
+        is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
+        ok($obj->has_attr1, '...and the predicate returns true as normal');
+        is($obj->attr2, 5678, 'assigning a defined value during construction works as normal');
+        ok($obj->has_attr2, '...and the predicate returns true as normal');
+    }
+}
+
+note 'Default behaviour: mutable classes';
 note '';
-
-note 'Testing class with a single UndefTolerant attribute';
-{
-    my $obj = Foo->new;
-    ok($obj->has_attr1, 'attr1 has a value');
-    ok($obj->has_attr2, 'attr2 has a value');
-    is($obj->attr1, 1, 'attr1\'s value is its default');
-    is($obj->attr2, 2, 'attr2\'s value is its default');
-}
-
-{
-    my $obj = Foo->new(attr1 => undef);
-    ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
-    is($obj->attr1, 1, 'attr1\'s value is its default');
-    is($obj->attr2, 2, 'attr2\'s value is its default');
-}
-
-{
-    my $obj = Foo->new(attr1 => 1234, attr2 => 5678);
-    is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
-    ok($obj->has_attr1, '...and the predicate returns true as normal');
-    is($obj->attr2, 5678, 'assigning a defined value during construction works as normal');
-    ok($obj->has_attr2, '...and the predicate returns true as normal');
-}
-
+do_tests;
 
 note '';
-note 'Testing class with the entire class being UndefTolerant';
-{
-    my $obj = Bar->new;
-    ok($obj->has_attr1, 'attr1 has a value');
-    ok($obj->has_attr2, 'attr2 has a value');
-    is($obj->attr1, 1, 'attr1\'s value is its default');
-    is($obj->attr2, 2, 'attr2\'s value is its default');
+note 'Default behaviour: immutable classes';
+note '';
+Foo->meta->make_immutable;
+Bar->meta->make_immutable;
+
+TODO: {
+    local $TODO = 'some immutable cases are not handled yet';
+    # for now, catch errors
+    ok(! exception { do_tests }, 'tests do not die');
+
+    is(Test::More->builder->current_test, 44, 'if we got here, we can declare victory!');
 }
 
-{
-    my $obj = Bar->new(attr1 => undef);
-    ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
-    is($obj->attr1, 1, 'attr1\'s value is its default');
-    is($obj->attr2, 2, 'attr2\'s value is its default');
-}
-
-{
-    my $obj = Bar->new(attr1 => 1234, attr2 => 5678);
-    is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
-    ok($obj->has_attr1, '...and the predicate returns true as normal');
-    is($obj->attr2, 5678, 'assigning a defined value during construction works as normal');
-    ok($obj->has_attr2, '...and the predicate returns true as normal');
-}
+done_testing;
 
