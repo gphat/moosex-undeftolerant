@@ -16,6 +16,6 @@ MANIFEST			This list of files
 META.yml
 README
 t/00-load.t
-t/attribute.t
+t/constructor.t
 t/defaults.t
 t/immutable.t
