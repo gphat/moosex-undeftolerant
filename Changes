@@ -1,6 +1,6 @@
 Revision history for MooseX-UndefTolerant
 
-<soon>
+0.08    February 27, 2011
     * Additional (TODO) unit tests for immutable classes, and documentation
       notes about these limitations. (Karen Etheridge)
 
