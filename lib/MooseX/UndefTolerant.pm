@@ -4,15 +4,22 @@ use Moose qw();
 use Moose::Exporter;
 
 use MooseX::UndefTolerant::Attribute;
+use MooseX::UndefTolerant::Class;
 use MooseX::UndefTolerant::Constructor;
 
 our $VERSION = '0.07';
 
+my %metaroles = ( attribute => [ 'MooseX::UndefTolerant::Attribute' ] );
+if ( $Moose::VERSION < 1.9900 ) {
+        $metaroles{constructor} = [ 'MooseX::UndefTolerant::Constructor' ];
+}
+else {
+        $metaroles{class} = [ 'MooseX::UndefTolerant::Class' ];
+}
+
+
 Moose::Exporter->setup_import_methods(
-    class_metaroles => { 
-           attribute => [ 'MooseX::UndefTolerant::Attribute' ],
-           constructor => [ 'MooseX::UndefTolerant::Constructor' ],
-    }
+    class_metaroles => \%metaroles,
 );
 
 1;
