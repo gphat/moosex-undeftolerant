@@ -7,7 +7,7 @@ use MooseX::UndefTolerant::Attribute;
 use MooseX::UndefTolerant::Class;
 use MooseX::UndefTolerant::Constructor;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 my %metaroles = ( attribute => [ 'MooseX::UndefTolerant::Attribute' ] );
 if ( $Moose::VERSION < 1.9900 ) {
