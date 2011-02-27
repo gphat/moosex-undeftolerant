@@ -4,6 +4,9 @@ Revision history for MooseX-UndefTolerant
     * Additional (TODO) unit tests for immutable classes, and documentation
       notes about these limitations. (Karen Etheridge)
 
+    * Added forward compatibility with Moose 1.9900+, but this module still
+      works with older Moose too. (Dave Rolsky)
+
 0.07
     * Don't do extra work by exists-ing before defined-ing (Chip Salzenberg)
 
