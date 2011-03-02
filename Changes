@@ -1,5 +1,8 @@
 Revision history for MooseX-UndefTolerant
 
+0.09    March 2, 2011
+    * Add missing test prereq on Test::Fatal. (Dave Rolsky)
+
 0.08    February 27, 2011
     * Additional (TODO) unit tests for immutable classes, and documentation
       notes about these limitations. (Karen Etheridge)
