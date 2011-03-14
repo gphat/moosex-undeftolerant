@@ -5,13 +5,22 @@ around('initialize_instance_slot', sub {
     my $orig = shift;
     my $self = shift;
 
-    my $ia = $self->init_arg;
+    my $key_name = $self->init_arg;
 
-    # $_[2] is the hashref of options passed to the constructor. If our
-    # parameter passed in was undef, pop it off the args...
-    pop unless (defined $ia && defined($_[2]->{$ia}));
+    # $_[2] is the hashref of options passed to the constructor.
+    # If our parameter passed in was undef, pop it off the args...
+    # but leave the value unscathed if the attribute's type constraint can
+    # handle undef (or doesn't have one, which implicitly means it can)
+    if (not defined $key_name or not defined($_[2]->{$key_name}))
+    {
+        my $type_constraint = $self->type_constraint;
+        if ($type_constraint and not $type_constraint->check(undef))
+        {
+            pop;
+        }
+    }
 
-    # Invoke the real init, as the above line cleared the unef
+    # Invoke the real init, as the above line cleared the undef
     $self->$orig(@_)
 });
 
