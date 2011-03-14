@@ -47,34 +47,19 @@ package main;
 sub do_tests
 {
     note 'Testing class with a single UndefTolerant attribute';
-    {
-        my $obj = Foo->new;
-        ok($obj->has_attr1, 'attr1 has a value');
-        ok($obj->has_attr2, 'attr2 has a value');
-        is($obj->attr1, 1, 'attr1\'s value is its default');
-        is($obj->attr2, 2, 'attr2\'s value is its default');
-    }
-
-    {
-        my $obj = Foo->new(attr1 => undef);
-        ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
-        is($obj->attr1, 1, 'attr1\'s value is its default');
-        is($obj->attr2, 2, 'attr2\'s value is its default');
-    }
-
-    {
-        my $obj = Foo->new(attr1 => 1234, attr2 => 5678);
-        is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
-        ok($obj->has_attr1, '...and the predicate returns true as normal');
-        is($obj->attr2, 5678, 'assigning a defined value during construction works as normal');
-        ok($obj->has_attr2, '...and the predicate returns true as normal');
-    }
-
+    do_tests_with_class('Foo');
 
     note '';
     note 'Testing class with the entire class being UndefTolerant';
+    do_tests_with_class('Bar');
+}
+
+sub do_tests_with_class
+{
+    my $class = shift;
+
     {
-        my $obj = Bar->new;
+        my $obj = $class->new;
         ok($obj->has_attr1, 'attr1 has a value');
         ok($obj->has_attr2, 'attr2 has a value');
         is($obj->attr1, 1, 'attr1\'s value is its default');
@@ -82,14 +67,14 @@ sub do_tests
     }
 
     {
-        my $obj = Bar->new(attr1 => undef);
+        my $obj = $class->new(attr1 => undef);
         ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
         is($obj->attr1, 1, 'attr1\'s value is its default');
         is($obj->attr2, 2, 'attr2\'s value is its default');
     }
 
     {
-        my $obj = Bar->new(attr1 => 1234, attr2 => 5678);
+        my $obj = $class->new(attr1 => 1234, attr2 => 5678);
         is($obj->attr1, 1234, 'assigning a defined value during construction works as normal');
         ok($obj->has_attr1, '...and the predicate returns true as normal');
         is($obj->attr2, 5678, 'assigning a defined value during construction works as normal');
