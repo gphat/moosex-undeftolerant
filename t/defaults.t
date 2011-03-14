@@ -95,7 +95,7 @@ Bar->meta->make_immutable;
 TODO: {
     local $TODO = 'some immutable cases are not handled yet';
     # for now, catch errors
-    ok(! exception { do_tests }, 'tests do not die');
+    is (exception { do_tests }, undef, 'tests do not die');
 
     is(Test::More->builder->current_test, 44, 'if we got here, we can declare victory!');
 }

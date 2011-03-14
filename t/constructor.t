@@ -50,7 +50,7 @@ sub do_tests
     {
         my $obj = Foo->new(attr1 => undef);
         ok(!$obj->has_attr1, 'UT attr1 has no value when assigned undef in constructor');
-        ok (exception { $obj = Foo->new(attr2 => undef) },
+        is (exception { $obj = Foo->new(attr2 => undef) }, undef,
             'But assigning undef to attr2 generates a type constraint error');
     }
 
@@ -73,7 +73,7 @@ sub do_tests
     {
         my $obj = Bar->new(attr1 => undef);
         ok(!$obj->has_attr1, 'attr1 has no value when assigned undef in constructor');
-        ok (!exception { $obj = Bar->new(attr2 => undef) },
+        is (exception { $obj = Bar->new(attr2 => undef) }, undef,
             'assigning undef to attr2 does not produce an error');
         ok(!$obj->has_attr2, 'attr2 has no value when assigned undef in constructor');
     }
@@ -98,7 +98,7 @@ Bar->meta->make_immutable;
 TODO: {
     local $TODO = 'some immutable cases are not handled yet';
     # for now, catch errors
-    ok(! exception { do_tests }, 'tests do not die');
+    is(exception { do_tests }, undef, 'tests do not die');
 
     is(Test::More->builder->current_test, 28, 'if we got here, we can declare victory!');
 }
