@@ -13,8 +13,8 @@ if ( $Moose::VERSION < 1.9900 ) {
                 # clearing the param if it's undefined.
 
                 if (defined $key_name) {
-                        my $tolerant_code = 
-                             qq# delete \$params->{'$key_name'} unless # . 
+                        my $tolerant_code =
+                             qq# delete \$params->{'$key_name'} unless # .
                              qq# exists \$params->{'$key_name'} && defined \$params->{'$key_name'};\n#;
 
                         return $tolerant_code . $self->$orig(@_);

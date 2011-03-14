@@ -7,7 +7,6 @@ use MooseX::UndefTolerant::Attribute;
 use MooseX::UndefTolerant::Class;
 use MooseX::UndefTolerant::Constructor;
 
-our $VERSION = '0.09';
 
 my %metaroles = ( attribute => [ 'MooseX::UndefTolerant::Attribute' ] );
 if ( $Moose::VERSION < 1.9900 ) {
@@ -24,11 +23,9 @@ Moose::Exporter->setup_import_methods(
 
 1;
 
+# ABSTRACT: Make your attribute(s) tolerant to undef initialization
+
 __END__
-
-=head1 NAME
-
-MooseX::UndefTolerant - Make your attribute(s) tolerant to undef initialization
 
 =head1 SYNOPSIS
 
@@ -114,10 +111,6 @@ inlined constructor initialization code currently lives in
 L<Moose::Meta::Method::Constructor>, not L<Moose::Meta::Attribute>. The good
 news is that this is expected to be changing shortly.
 
-=head1 AUTHOR
-
-Cory G Watson, C<< <gphat at cpan.org> >>
-
 =head1 ACKNOWLEDGEMENTS
 
 Many thanks to the crew in #moose who talked me through this module:
@@ -133,15 +126,5 @@ Dylan Hardison (dylan)
 Jay Shirley (jshirley)
 
 Mike Eldridge (diz)
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2009 Cory G Watson.
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
 
 =cut

@@ -17,9 +17,9 @@ around('initialize_instance_slot', sub {
 
 1;
 
-=head1 NAME
+# ABSTRACT: Make your attribute(s) tolerant to undef intitialization
 
-MooseX::UndefTolerant::Attribute - Make your attribute(s) tolerant to undef intitialization
+__END__
 
 =head1 SYNOPSIS
 
@@ -45,21 +45,7 @@ MooseX::UndefTolerant::Attribute - Make your attribute(s) tolerant to undef inti
 
 Applying this trait to your attribute makes it's initialization tolerant of
 of undef.  If you specify the value of undef to any of the attributes they
-will not be initialized (or will be set to the default, if applicable). 
+will not be initialized (or will be set to the default, if applicable).
 Effectively behaving as if you had not provided a value at all.
-
-=head1 AUTHOR
-
-Cory G Watson, C<< <gphat at cpan.org> >>
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2009 Cory G Watson.
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
 
 =cut
