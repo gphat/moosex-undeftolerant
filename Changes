@@ -1,5 +1,10 @@
 Revision history for MooseX-UndefTolerant
 
+{{$NEXT}}
+    * No longer apply UndefTolerant behaviour to attributes with a type
+      constraint that handles undef (or those with no type constraint at all).
+      (Karen Etheridge)
+
 0.09    March 2, 2011
     * Add missing test prereq on Test::Fatal. (Dave Rolsky)
 

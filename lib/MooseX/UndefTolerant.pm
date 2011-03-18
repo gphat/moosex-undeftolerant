@@ -67,6 +67,14 @@ attributes tolerant of undef.  If you specify the value of undef to any of
 the attributes they will not be initialized, effectively behaving as if you
 had not provided a value at all.
 
+You can also apply the 'UndefTolerant' trait to individual attributes. See See
+L<MooseX::UndefTolerant::Attribute> for details.
+
+There will be no change in behaviour to any attribute with a type constraint
+that accepts undef values (for example C<Maybe> types), as it is presumed that
+since the type is already "undef tolerant", there is no need to avoid
+initializing the attribute value with C<undef>.
+
 =head1 MOTIVATION
 
 I often found myself in this quandry:
