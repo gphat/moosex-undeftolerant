@@ -1,14 +1,14 @@
 Revision history for MooseX-UndefTolerant
 
-{{$NEXT}}
+0.10    2011-03-18
     * No longer apply UndefTolerant behaviour to attributes with a type
       constraint that handles undef (or those with no type constraint at all).
       (Karen Etheridge)
 
-0.09    March 2, 2011
+0.09    2011-03-02
     * Add missing test prereq on Test::Fatal. (Dave Rolsky)
 
-0.08    February 27, 2011
+0.08    2011-02-27
     * Additional (TODO) unit tests for immutable classes, and documentation
       notes about these limitations. (Karen Etheridge)
 
@@ -26,15 +26,15 @@ Revision history for MooseX-UndefTolerant
 0.05
     * Avoid warnings from Moose 1.09. (Dave Rolsky)
 
-0.04    January 23, 2010
+0.04    2010-01-23
     * Rather than skipping initialization all together, just pop off the undef
       and let the init happen normally.  This makes default values work
       properly. (Test provided by (and thanks to) Tom Heady)
 
-0.03    December 3, 2009
+0.03    2009-12-03
     * Fiddle with dependencies.
 
-0.02    December 2, 2009
+0.02    2009-12-02
     * Actually check the value properly, therefore setting it properly
 
 0.01    Date/time
