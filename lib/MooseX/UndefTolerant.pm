@@ -103,8 +103,8 @@ real solution was:
     $class = My:Class->new(bar => 123);
   }
 
-Or some type of codemulch using ternarys.  This module allows you to make
-your attributes more tolerant of undef so that you can keep the first
+Or some type of codemulch using ternary conditionals.  This module allows you
+to make your attributes more tolerant of undef so that you can keep the first
 example: have your cake and eat it too!
 
 =head1 PER ATTRIBUTE
