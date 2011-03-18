@@ -67,7 +67,7 @@ attributes tolerant of undef.  If you specify the value of undef to any of
 the attributes they will not be initialized, effectively behaving as if you
 had not provided a value at all.
 
-You can also apply the 'UndefTolerant' trait to individual attributes. See See
+You can also apply the 'UndefTolerant' trait to individual attributes. See
 L<MooseX::UndefTolerant::Attribute> for details.
 
 There will be no change in behaviour to any attribute with a type constraint
