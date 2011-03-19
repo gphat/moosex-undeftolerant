@@ -28,7 +28,8 @@ if ( $Moose::VERSION < 1.9900 ) {
         }
 
         return $self->$orig(@_);
-});
+    });
+}
 
 no Moose::Role;
 1;

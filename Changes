@@ -1,5 +1,8 @@
 Revision history for MooseX-UndefTolerant
 
+0.11    2011-03-19
+    * re-release to fix careless syntax error (whoops!) :)
+
 0.10    2011-03-18
     * No longer apply UndefTolerant behaviour to attributes with a type
       constraint that handles undef (or those with no type constraint at all).

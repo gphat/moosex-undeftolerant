@@ -1,5 +1,4 @@
-#use Test::More;
-use Test::Most 'die';
+use Test::More;
 use Test::Fatal;
 
 use MooseX::UndefTolerant::Attribute ();
