@@ -6,7 +6,7 @@ around apply => sub {
     my $self  = shift;
     my ($role, $class) = @_;
 
-    Moose::Util::MetaRole::apply_metaroles(
+    $class = Moose::Util::MetaRole::apply_metaroles(
         for             => $class,
         class_metaroles => {
             class => [ 'MooseX::UndefTolerant::Class' ],

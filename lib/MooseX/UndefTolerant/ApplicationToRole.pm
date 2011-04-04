@@ -4,10 +4,10 @@ use Moose::Role;
 around apply => sub {
     my $orig  = shift;
     my $self  = shift;
-    my ($role, $class) = @_;
+    my ($role1, $role2) = @_;
 
-    Moose::Util::MetaRole::apply_metaroles(
-        for             => $class,
+    $role2 = Moose::Util::MetaRole::apply_metaroles(
+        for             => $role2,
         role_metaroles => {
             application_to_class => [
                 'MooseX::UndefTolerant::ApplicationToClass',
@@ -18,7 +18,7 @@ around apply => sub {
         }
     );
 
-    $self->$orig( $role, $class );
+    $self->$orig( $role1, $role2 );
 };
 
 no Moose::Role;
