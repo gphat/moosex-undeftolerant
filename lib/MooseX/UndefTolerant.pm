@@ -8,18 +8,38 @@ use MooseX::UndefTolerant::Class;
 use MooseX::UndefTolerant::Constructor;
 
 
-my %metaroles = ( attribute => [ 'MooseX::UndefTolerant::Attribute' ] );
+my %metaroles = (
+    class_metaroles => {
+        attribute => [ 'MooseX::UndefTolerant::Attribute' ],
+    }
+);
 if ( $Moose::VERSION < 1.9900 ) {
-        $metaroles{constructor} = [ 'MooseX::UndefTolerant::Constructor' ];
+    $metaroles{class_metaroles}{constructor} = [
+        'MooseX::UndefTolerant::Constructor',
+    ];
 }
 else {
-        $metaroles{class} = [ 'MooseX::UndefTolerant::Class' ];
+    $metaroles{class_metaroles}{class} = [
+        'MooseX::UndefTolerant::Class',
+    ];
+    $metaroles{role_metaroles} = {
+        applied_attribute => [
+            'MooseX::UndefTolerant::Attribute',
+        ],
+        role => [
+            'MooseX::UndefTolerant::Role',
+        ],
+        application_to_class => [
+            'MooseX::UndefTolerant::ApplicationToClass',
+        ],
+        application_to_role => [
+            'MooseX::UndefTolerant::ApplicationToRole',
+        ],
+    };
 }
 
 
-Moose::Exporter->setup_import_methods(
-    class_metaroles => \%metaroles,
-);
+Moose::Exporter->setup_import_methods(%metaroles);
 
 1;
 
