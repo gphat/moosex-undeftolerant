@@ -1,5 +1,8 @@
 Revision history for MooseX-UndefTolerant
 
+0.12    2011-04-03
+    * This module can now be used in roles with Moose 1.9900+. (Jesse Luehrs)
+
 0.11    2011-03-19
     * re-release to fix careless syntax error (whoops!) :)
 
