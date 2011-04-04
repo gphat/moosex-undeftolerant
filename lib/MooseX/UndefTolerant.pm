@@ -95,6 +95,9 @@ that accepts undef values (for example C<Maybe> types), as it is presumed that
 since the type is already "undef tolerant", there is no need to avoid
 initializing the attribute value with C<undef>.
 
+As of Moose 1.9900, this module can also be used in a role, in which case all
+of that role's attributes will be undef-tolerant.
+
 =head1 MOTIVATION
 
 I often found myself in this quandry:
