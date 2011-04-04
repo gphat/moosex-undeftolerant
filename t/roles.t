@@ -39,6 +39,27 @@ plan skip_all => "only relevant for Moose 2.0"
     with 'Foo::Role', 'Bar::Role';
 }
 
+{
+    package Baz::Role;
+    use Moose::Role;
+    with 'Foo::Role';
+}
+
+{
+    package Baz;
+    use Moose;
+
+    with 'Baz::Role';
+}
+
+{
+    package Quux;
+    use Moose;
+
+    with 'Foo::Role';
+    with 'Bar::Role';
+}
+
 with_immutable {
     my $foo;
     is(exception { $foo = Foo->new(foo => undef) }, undef,
@@ -49,6 +70,16 @@ with_immutable {
     is(exception { $bar = Bar->new(foo => undef) }, undef,
        "can set to undef in constructor");
     ok(!$bar->has_foo, "role attribute isn't set");
-} 'Foo', 'Bar';
+
+    my $baz;
+    is(exception { $baz = Baz->new(foo => undef) }, undef,
+       "can set to undef in constructor");
+    ok(!$baz->has_foo, "role attribute isn't set");
+
+    my $quux;
+    is(exception { $quux = Quux->new(foo => undef) }, undef,
+       "can set to undef in constructor");
+    ok(!$quux->has_foo, "role attribute isn't set");
+} 'Foo', 'Bar', 'Baz', 'Quux';
 
 done_testing;
