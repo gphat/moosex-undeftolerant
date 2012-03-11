@@ -1,5 +1,11 @@
 package MooseX::UndefTolerant::Constructor;
+
+# applied to constructor method metaclass, for Moose < 1.9900
+
 use Moose::Role;
+
+use strict;
+use warnings;
 
 around _generate_slot_initializer => sub {
     my $orig = shift;

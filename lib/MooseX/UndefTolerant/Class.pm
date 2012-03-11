@@ -1,4 +1,10 @@
 package MooseX::UndefTolerant::Class;
+
+# applied to metaclass, for Moose >= 1.9900
+
+use strict;
+use warnings;
+
 use Moose::Role;
 
 around _inline_init_attr_from_constructor => sub {
@@ -19,5 +25,4 @@ around _inline_init_attr_from_constructor => sub {
 };
 
 no Moose::Role;
-
 1;

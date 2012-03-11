@@ -1,5 +1,8 @@
 package MooseX::UndefTolerant;
 
+use strict;
+use warnings;
+
 use Moose qw();
 use Moose::Exporter;
 
