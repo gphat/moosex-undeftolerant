@@ -60,7 +60,9 @@ sub do_tests
     {
         my $obj = Foo->new(attr1 => undef);
         ok(!$obj->has_attr1, 'UT attr1 has no value when assigned undef in constructor');
-        isnt (exception { $obj = Foo->new(attr2 => undef) }, undef,
+        like(
+            exception { $obj = Foo->new(attr2 => undef) },
+            qr/\QAttribute (attr2) does not pass the type constraint because: Validation failed for 'Num' with value undef\E/,
             'But assigning undef to attr2 generates a type constraint error');
 
         is (exception { $obj = Foo->new(attr3 => undef) }, undef,
