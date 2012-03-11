@@ -70,7 +70,6 @@ sub do_tests
         $TODO = 'some immutable cases are not handled yet; see CAVEATS' if Foo->meta->is_immutable;
         is(
             exception {
-
                 my $obj = Foo->new(attr1 => undef);
                 ok(!$obj->has_attr1, 'UT attr1 has no value when assigned undef in constructor');
                 like(
