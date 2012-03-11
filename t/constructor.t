@@ -1,5 +1,6 @@
 use Test::More;
 use Test::Fatal;
+use Test::Moose;
 
 {
     package Foo;
@@ -47,7 +48,7 @@ use Test::Fatal;
 
 package main;
 
-sub do_tests
+with_immutable
 {
     note 'Testing class with a single UndefTolerant attribute';
     {
@@ -57,17 +58,26 @@ sub do_tests
         ok(!$obj->has_attr3, 'attr3 has no value before it is assigned');
     }
 
-    {
-        my $obj = Foo->new(attr1 => undef);
-        ok(!$obj->has_attr1, 'UT attr1 has no value when assigned undef in constructor');
-        like(
-            exception { $obj = Foo->new(attr2 => undef) },
-            qr/\QAttribute (attr2) does not pass the type constraint because: Validation failed for 'Num' with value undef\E/,
-            'But assigning undef to attr2 generates a type constraint error');
+    TODO: {
+        local $TODO;
+        $TODO = 'some immutable cases are not handled yet; see CAVEATS' if Foo->meta->is_immutable;
+        is(
+            exception {
 
-        is (exception { $obj = Foo->new(attr3 => undef) }, undef,
-            'assigning undef to attr3 is acceptable');
-        ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
+                my $obj = Foo->new(attr1 => undef);
+                ok(!$obj->has_attr1, 'UT attr1 has no value when assigned undef in constructor');
+                like(
+                    exception { $obj = Foo->new(attr2 => undef) },
+                    qr/\QAttribute (attr2) does not pass the type constraint because: Validation failed for 'Num' with value undef\E/,
+                    'But assigning undef to attr2 generates a type constraint error');
+
+                is (exception { $obj = Foo->new(attr3 => undef) }, undef,
+                    'assigning undef to attr3 is acceptable');
+                ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
+            },
+            undef,
+            'successfully tested spot-applicaction of UT trait in immutable classes',
+        );
     }
 
     {
@@ -117,24 +127,9 @@ sub do_tests
         ok($obj->has_attr3, '...and the predicate returns true as normal');
     }
 }
+qw(Foo Bar);
 
-
-note 'Constructor behaviour: mutable classes';
-note '';
-do_tests;
-
-note '';
-note 'Constructor behaviour: immutable classes';
-note '';
-Foo->meta->make_immutable;
-Bar->meta->make_immutable;
-TODO: {
-    local $TODO = 'some immutable cases are not handled yet';
-    # for now, catch errors
-    is(exception { do_tests }, undef, 'tests do not die');
-
-    is(Test::More->builder->current_test, 28, 'if we got here, we can declare victory!');
-}
+note 'Ran ', Test::More->builder->current_test, ' tests - should have run 56';
 
 done_testing;
 
