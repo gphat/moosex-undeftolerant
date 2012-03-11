@@ -56,7 +56,8 @@ use Test::Fatal;
 
 sub do_tests
 {
-    note 'Testing class with a single UndefTolerant attribute';
+    note 'Testing ', (Foo->meta->is_immutable ? 'im' : '') . 'mutable ',
+        'class with a single UndefTolerant attribute';
     {
         my $obj = Foo->new;
         ok(!$obj->has_attr1, 'attr1 has no value before it is assigned');
@@ -82,7 +83,8 @@ sub do_tests
                 ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
             },
             undef,
-            'successfully tested spot-applicaction of UT trait in immutable classes',
+            'successfully tested spot-application of UT trait in '
+                . (Foo->meta->is_immutable ? 'im' : '') . 'mutable classes',
         );
     }
 
@@ -98,9 +100,10 @@ sub do_tests
         ok($obj->has_attr3, '...and the predicate returns true as normal');
     }
 
-
     note '';
-    note 'Testing class with the entire class being UndefTolerant';
+    note 'Testing class with the entire ',
+        (Foo->meta->is_immutable ? 'im' : '') . 'mutable ',
+        'class being UndefTolerant';
     {
         my $obj = Bar->new;
         ok(!$obj->has_attr1, 'attr1 has no value before it is assigned');
