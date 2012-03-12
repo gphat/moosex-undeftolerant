@@ -1,5 +1,6 @@
 use Test::More;
 use Test::Fatal;
+use Test::Moose;
 
 use MooseX::UndefTolerant::Attribute ();
 
@@ -58,6 +59,9 @@ package main;
 
 sub do_tests
 {
+    note 'Default behaviour: ',
+        (Foo->meta->is_immutable ? 'im' : '') . 'mutable classes', "\n";
+
     note 'Testing class with a single UndefTolerant attribute';
     do_tests_with_class('Foo');
 
@@ -81,14 +85,26 @@ sub do_tests_with_class
         is($obj->attr3, 3, 'attr3\'s value is its default');
     }
 
-    {
-        my $obj = $class->new(attr1 => undef, attr3 => undef);
-        ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
-        ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
+    TODO: {
+        local $TODO;
 
-        is($obj->attr1, 1, 'attr1\'s value is its default');
-        is($obj->attr2, 2, 'attr2\'s value is its default');
-        is($obj->attr3, undef, 'attr3\'s value is not its default (explicitly set)');
+        my $e = exception {
+            my $obj = $class->new(attr1 => undef, attr3 => undef);
+            {
+                local $TODO = 'not sure why this fails still... needs attr trait rewrite' if $obj->meta->is_immutable;
+                ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
+                ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
+
+                is($obj->attr1, 1, 'attr1\'s value is its default');
+            }
+
+            is($obj->attr2, 2, 'attr2\'s value is its default');
+            is($obj->attr3, undef, 'attr3\'s value is not its default (explicitly set)');
+        };
+        $TODO = 'some immutable cases are not handled yet; see CAVEATS'
+            if $class->meta->is_immutable and $class eq 'Foo';
+
+        is($e, undef, 'these tests do not die');
     }
 
     {
@@ -104,22 +120,13 @@ sub do_tests_with_class
     }
 }
 
-note 'Default behaviour: mutable classes';
-note '';
-do_tests;
-
-note '';
-note 'Default behaviour: immutable classes';
-note '';
-Foo->meta->make_immutable;
-Bar->meta->make_immutable;
+with_immutable {
+    do_tests;
+} qw(Foo Bar);
 
 TODO: {
-    local $TODO = 'some immutable cases are not handled yet';
-    # for now, catch errors
-    is (exception { do_tests }, undef, 'tests do not die');
-
-    is(Test::More->builder->current_test, 44, 'if we got here, we can declare victory!');
+    local $TODO = 'some cases are still not handled yet; see CAVEATS';
+    is(Test::More->builder->current_test, 98, 'if we got here, we can declare victory!');
 }
 
 done_testing;
