@@ -4,6 +4,9 @@ Revision history for MooseX-UndefTolerant
     * unit test improvements - tighter TODO scopes, better diagnostics on
       failure, Test::Moose for cleaner logic
     * fix documentation referencing Moose changes that are still TBD
+    * undef attr values being stripped at construction time are now removed
+      from visibility of all attr initializations, not just the one being
+      updated at the time
 
 0.12    2011-04-03
     * This module can now be used in roles with Moose 1.9900+. (Jesse Luehrs)
