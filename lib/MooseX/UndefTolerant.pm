@@ -142,8 +142,8 @@ See L<MooseX::UndefTolerant::Attribute>.
 This extension does not currently work in immutable classes when applying the
 trait to some (but not all) attributes in the class. This is because the
 inlined constructor initialization code currently lives in
-L<Moose::Meta::Method::Constructor>, not L<Moose::Meta::Attribute>. The good
-news is that this is expected to be changing shortly.
+L<Moose::Meta::Class>, not L<Moose::Meta::Attribute>. The good news is that
+this is expected to be changing shortly.
 
 =head1 ACKNOWLEDGEMENTS
 

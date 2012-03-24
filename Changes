@@ -3,6 +3,7 @@ Revision history for MooseX-UndefTolerant
 0.13
     * unit test improvements - tighter TODO scopes, better diagnostics on
       failure, Test::Moose for cleaner logic
+    * fix documentation referencing Moose changes that are still TBD
 
 0.12    2011-04-03
     * This module can now be used in roles with Moose 1.9900+. (Jesse Luehrs)
