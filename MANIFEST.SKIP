@@ -55,3 +55,7 @@
 # Avoid MYMETA files
 ^MYMETA\.
 
+# local additions
+^notes/
+^todo.txt
+^ignore.txt
