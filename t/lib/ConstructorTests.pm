@@ -101,7 +101,7 @@ sub do_tests
 
     note '';
     note 'Testing class with the entire ',
-        (Foo->meta->is_immutable ? 'im' : '') . 'mutable ',
+        (Bar->meta->is_immutable ? 'im' : '') . 'mutable ',
         'class being UndefTolerant';
     {
         my $obj = Bar->new;
