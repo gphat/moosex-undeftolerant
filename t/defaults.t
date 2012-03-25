@@ -86,12 +86,14 @@ sub do_tests_with_class
     }
 
     TODO: {
-        local $TODO;
-
         my $e = exception {
             my $obj = $class->new(attr1 => undef, attr3 => undef);
             {
                 local $TODO = 'not sure why this fails still... needs attr trait rewrite' if $obj->meta->is_immutable;
+                # FIXME: the object is successfully constructed, and the value
+                # for attr1 is properly removed, but the default is not then
+                # used instead...
+                # note "### constructed object: ", $obj->dump(2);
                 ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
                 ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
 
@@ -101,7 +103,7 @@ sub do_tests_with_class
             is($obj->attr2, 2, 'attr2\'s value is its default');
             is($obj->attr3, undef, 'attr3\'s value is not its default (explicitly set)');
         };
-        $TODO = 'some immutable cases are not handled yet; see CAVEATS'
+        local $TODO = 'some immutable cases are not handled yet; see CAVEATS'
             if $class->meta->is_immutable and $class eq 'Foo';
 
         is($e, undef, 'these tests do not die');
