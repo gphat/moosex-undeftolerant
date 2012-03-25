@@ -7,6 +7,9 @@ use warnings;
 
 use Moose::Role;
 
+# TODO: this code should be in the attribute trait, in the inlined version of
+# initialize_instance_slot, but this does not yet exist!
+
 around _inline_init_attr_from_constructor => sub {
     my $orig = shift;
     my $self = shift;
