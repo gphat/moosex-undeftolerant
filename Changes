@@ -1,5 +1,7 @@
 Revision history for MooseX-UndefTolerant
 
+{{$NEXT}}
+
 0.13
     * unit test improvements - tighter TODO scopes, better diagnostics on
       failure, Test::Moose for cleaner logic
