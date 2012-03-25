@@ -21,6 +21,7 @@ around _inline_init_attr_from_constructor => sub {
     my $type_constraint = $attr->type_constraint;
     my $tc_says_clean = ($type_constraint && !$type_constraint->check(undef) ? 1 : 0);
 
+    # FIXME: not properly sanitizing field names - e.g. consider a field name "Z'ha'dum"
     return ($tc_says_clean ? (
         "if ( exists \$params->{'$init_arg'} && defined \$params->{'$init_arg'} ) {",
         ) : (),
