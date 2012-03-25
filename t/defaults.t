@@ -95,10 +95,9 @@ sub do_tests_with_class
                 # used instead...
                 # note "### constructed object: ", $obj->dump(2);
                 ok($obj->has_attr1, 'UT attr1 has a value when assigned undef in constructor');
-                ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
-
                 is($obj->attr1, 1, 'attr1\'s value is its default');
             }
+            ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
 
             is($obj->attr2, 2, 'attr2\'s value is its default');
             is($obj->attr3, undef, 'attr3\'s value is not its default (explicitly set)');
