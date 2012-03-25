@@ -18,13 +18,19 @@ around _inline_init_attr_from_constructor => sub {
     my @source = $self->$orig(@_);
 
     my $init_arg = $attr->init_arg;
+    my $type_constraint = $attr->type_constraint;
+    my $tc_says_clean = ($type_constraint && !$type_constraint->check(undef) ? 1 : 0);
 
-    return
-        "if ( exists \$params->{$init_arg} && defined \$params->{$init_arg} ) {",
-            @source,
+    return ($tc_says_clean ? (
+        "if ( exists \$params->{'$init_arg'} && defined \$params->{'$init_arg'} ) {",
+        ) : (),
+        @source,
+        $tc_says_clean ? (
         '} else {',
-            "delete \$params->{$init_arg};",
-        '}';
+            "delete \$params->{'$init_arg'};",
+        '}',
+        ) : (),
+    );
 };
 
 no Moose::Role;

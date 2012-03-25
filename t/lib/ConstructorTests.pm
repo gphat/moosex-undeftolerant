@@ -79,7 +79,8 @@ sub do_tests
 
                 is (exception { $obj = Foo->new(attr3 => undef) }, undef,
                     'assigning undef to attr3 is acceptable');
-                ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
+                ok($obj->has_attr3, 'attr3 still has a value');
+                is($obj->attr3, undef, '...which is undef, when assigned undef in constructor');
             },
             undef,
             'successfully tested spot-application of UT trait in '
@@ -118,9 +119,10 @@ sub do_tests
             'assigning undef to attr2 does not produce an error');
         ok(!$obj->has_attr2, 'attr2 has no value when assigned undef in constructor');
 
-        is( exception { $obj = Foo->new(attr3 => undef) }, undef,
+        is( exception { $obj = Bar->new(attr3 => undef) }, undef,
             'assigning undef to attr3 is acceptable');
-        ok($obj->has_attr3, 'attr3 retains its undef value when assigned undef in constructor');
+        ok($obj->has_attr3, 'attr3 still has a value');
+        is($obj->attr3, undef, '...which is undef, when assigned undef in constructor');
     }
 
     {

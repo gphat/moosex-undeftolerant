@@ -7,6 +7,9 @@ Revision history for MooseX-UndefTolerant
     * undef attr values being stripped at construction time are now removed
       from visibility of all attr initializations, not just the one being
       updated at the time
+    * fixed case where an attribute on an immutable class was being stripped
+      of its undef value at construction time even if its type constraint
+      already can tolerate undef.
 
 0.12    2011-04-03
     * This module can now be used in roles with Moose 1.9900+. (Jesse Luehrs)
