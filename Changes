@@ -1,8 +1,38 @@
 Revision history for MooseX-UndefTolerant
 
-<soon>
+{{$NEXT}}
+
+0.13
+    * unit test improvements - tighter TODO scopes, better diagnostics on
+      failure, Test::Moose for cleaner logic
+    * fix documentation referencing Moose changes that are still TBD
+    * undef attr values being stripped at construction time are now removed
+      from visibility of all attr initializations, not just the one being
+      updated at the time
+    * fixed case where an attribute on an immutable class was being stripped
+      of its undef value at construction time even if its type constraint
+      already can tolerate undef.
+
+0.12    2011-04-03
+    * This module can now be used in roles with Moose 1.9900+. (Jesse Luehrs)
+
+0.11    2011-03-19
+    * re-release to fix careless syntax error (whoops!) :)
+
+0.10    2011-03-18
+    * No longer apply UndefTolerant behaviour to attributes with a type
+      constraint that handles undef (or those with no type constraint at all).
+      (Karen Etheridge)
+
+0.09    2011-03-02
+    * Add missing test prereq on Test::Fatal. (Dave Rolsky)
+
+0.08    2011-02-27
     * Additional (TODO) unit tests for immutable classes, and documentation
       notes about these limitations. (Karen Etheridge)
+
+    * Added forward compatibility with Moose 1.9900+, but this module still
+      works with older Moose too. (Dave Rolsky)
 
 0.07
     * Don't do extra work by exists-ing before defined-ing (Chip Salzenberg)
@@ -15,15 +45,15 @@ Revision history for MooseX-UndefTolerant
 0.05
     * Avoid warnings from Moose 1.09. (Dave Rolsky)
 
-0.04    January 23, 2010
+0.04    2010-01-23
     * Rather than skipping initialization all together, just pop off the undef
       and let the init happen normally.  This makes default values work
       properly. (Test provided by (and thanks to) Tom Heady)
 
-0.03    December 3, 2009
+0.03    2009-12-03
     * Fiddle with dependencies.
 
-0.02    December 2, 2009
+0.02    2009-12-02
     * Actually check the value properly, therefore setting it properly
 
 0.01    Date/time

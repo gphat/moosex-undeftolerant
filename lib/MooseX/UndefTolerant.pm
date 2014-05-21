@@ -1,27 +1,54 @@
 package MooseX::UndefTolerant;
 
+use strict;
+use warnings;
+
 use Moose qw();
 use Moose::Exporter;
 
 use MooseX::UndefTolerant::Attribute;
+use MooseX::UndefTolerant::Class;
 use MooseX::UndefTolerant::Constructor;
 
-our $VERSION = '0.07';
 
-Moose::Exporter->setup_import_methods(
-    class_metaroles => { 
-           attribute => [ 'MooseX::UndefTolerant::Attribute' ],
-           constructor => [ 'MooseX::UndefTolerant::Constructor' ],
+my %metaroles = (
+    class_metaroles => {
+        attribute => [ 'MooseX::UndefTolerant::Attribute' ],
     }
 );
+if ( $Moose::VERSION < 1.9900 ) {
+    $metaroles{class_metaroles}{constructor} = [
+        'MooseX::UndefTolerant::Constructor',
+    ];
+}
+else {
+    $metaroles{class_metaroles}{class} = [
+        'MooseX::UndefTolerant::Class',
+    ];
+    $metaroles{role_metaroles} = {
+        applied_attribute => [
+            'MooseX::UndefTolerant::Attribute',
+        ],
+        role => [
+            'MooseX::UndefTolerant::Role',
+        ],
+        application_to_class => [
+            'MooseX::UndefTolerant::ApplicationToClass',
+        ],
+        application_to_role => [
+            'MooseX::UndefTolerant::ApplicationToRole',
+        ],
+    };
+}
+
+
+Moose::Exporter->setup_import_methods(%metaroles);
 
 1;
 
+# ABSTRACT: Make your attribute(s) tolerant to undef initialization
+
 __END__
-
-=head1 NAME
-
-MooseX::UndefTolerant - Make your attribute(s) tolerant to undef initialization
 
 =head1 SYNOPSIS
 
@@ -63,6 +90,17 @@ attributes tolerant of undef.  If you specify the value of undef to any of
 the attributes they will not be initialized, effectively behaving as if you
 had not provided a value at all.
 
+You can also apply the 'UndefTolerant' trait to individual attributes. See
+L<MooseX::UndefTolerant::Attribute> for details.
+
+There will be no change in behaviour to any attribute with a type constraint
+that accepts undef values (for example C<Maybe> types), as it is presumed that
+since the type is already "undef tolerant", there is no need to avoid
+initializing the attribute value with C<undef>.
+
+As of Moose 1.9900, this module can also be used in a role, in which case all
+of that role's attributes will be undef-tolerant.
+
 =head1 MOTIVATION
 
 I often found myself in this quandry:
@@ -91,8 +129,8 @@ real solution was:
     $class = My:Class->new(bar => 123);
   }
 
-Or some type of codemulch using ternarys.  This module allows you to make
-your attributes more tolerant of undef so that you can keep the first
+Or some type of codemulch using ternary conditionals.  This module allows you
+to make your attributes more tolerant of undef so that you can keep the first
 example: have your cake and eat it too!
 
 =head1 PER ATTRIBUTE
@@ -104,12 +142,8 @@ See L<MooseX::UndefTolerant::Attribute>.
 This extension does not currently work in immutable classes when applying the
 trait to some (but not all) attributes in the class. This is because the
 inlined constructor initialization code currently lives in
-L<Moose::Meta::Method::Constructor>, not L<Moose::Meta::Attribute>. The good
-news is that this is expected to be changing shortly.
-
-=head1 AUTHOR
-
-Cory G Watson, C<< <gphat at cpan.org> >>
+L<Moose::Meta::Class>, not L<Moose::Meta::Attribute>. The good news is that
+this is expected to be changing shortly.
 
 =head1 ACKNOWLEDGEMENTS
 
@@ -126,15 +160,5 @@ Dylan Hardison (dylan)
 Jay Shirley (jshirley)
 
 Mike Eldridge (diz)
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2009 Cory G Watson.
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
 
 =cut
